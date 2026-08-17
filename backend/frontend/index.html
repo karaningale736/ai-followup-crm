@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Follow-up CRM</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-icon">AI</span>
+      <div>
+        <div class="brand-title">AI Follow-up CRM</div>
+        <div class="brand-subtitle">Client Automation Workspace</div>
+      </div>
+    </div>
+    <div class="top-actions">
+      <span class="status-dot"></span>
+      <span id="api-status">Backend: loading...</span>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <nav class="nav-list">
+        <div class="nav-label">Workspace</div>
+        <a href="#" class="nav-link active">Dashboard</a>
+        <a href="#" class="nav-link">Clients</a>
+        <a href="#" class="nav-link">Follow-ups</a>
+        <a href="#" class="nav-link">Templates</a>
+        <a href="#" class="nav-link">Emails</a>
+      </nav>
+
+      <div class="side-card">
+        <div class="side-title">Live API</div>
+        <div class="side-body">
+          <div class="tiny-label">Base URL</div>
+          <code>http://localhost:8000/api</code>
+        </div>
+      </div>
+    </aside>
+
+    <section class="main-content">
+      <section class="page-header">
+        <div>
+          <div class="eyebrow">Overview</div>
+          <h1>Follow-up Dashboard</h1>
+        </div>
+        <button class="primary-button" id="refresh-button">Refresh</button>
+      </section>
+
+      <section class="kpi-grid" id="dashboard-cards">
+        <article class="kpi-card">
+          <span class="kpi-label">Total Clients</span>
+          <span class="kpi-number" id="total-clients">--</span>
+        </article>
+        <article class="kpi-card highlight">
+          <span class="kpi-label">Due Today</span>
+          <span class="kpi-number" id="due-today">--</span>
+        </article>
+        <article class="kpi-card warning">
+          <span class="kpi-label">Overdue</span>
+          <span class="kpi-number" id="overdue">--</span>
+        </article>
+        <article class="kpi-card">
+          <span class="kpi-label">Meetings Today</span>
+          <span class="kpi-number" id="meetings-today">--</span>
+        </article>
+        <article class="kpi-card">
+          <span class="kpi-label">Pending Agreements</span>
+          <span class="kpi-number" id="agreements-pending">--</span>
+        </article>
+      </section>
+
+      <section class="content-grid">
+        <article class="panel wide-panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-kicker">Clients</div>
+              <h2>Client Pipeline</h2>
+            </div>
+            <div class="inline-search">
+              <input id="search-input" type="text" placeholder="Search clients" />
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="client-table">
+              <thead>
+                <tr>
+                  <th>Client</th>
+                  <th>Company</th>
+                  <th>Stage</th>
+                  <th>Priority</th>
+                  <th>Last Contact</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="client-table-body"></tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-header compact">
+            <div>
+              <div class="panel-kicker">Follow-up</div>
+              <h2>Due Now</h2>
+            </div>
+          </div>
+          <div id="due-list" class="stack-list"></div>
+        </article>
+      </section>
+
+      <section class="content-grid lower-grid">
+        <article class="panel">
+          <div class="panel-header compact">
+            <div>
+              <div class="panel-kicker">Analyze</div>
+              <h2>Selected Client</h2>
+            </div>
+          </div>
+          <div class="selected-card">
+            <div id="selected-client-name" class="selected-name">No client selected</div>
+            <div id="selected-client-stage" class="selected-stage">--</div>
+          </div>
+          <div class="action-row">
+            <select id="client-select"></select>
+            <button id="analyze-button" class="secondary-button">Analyze</button>
+          </div>
+          <div id="analysis-output" class="analysis-output empty">No analysis yet.</div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-header compact">
+            <div>
+              <div class="panel-kicker">Email</div>
+              <h2>Draft Preview</h2>
+            </div>
+          </div>
+          <div id="email-preview" class="email-preview empty">
+            Generate a follow-up to see personalized email content.
+          </div>
+        </article>
+      </section>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>

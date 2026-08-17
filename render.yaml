@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: ai-followup-crm-backend
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/auth/me
+    envVars:
+      - key: DATABASE_URL
+        value: sqlite:///./crm.db
+      - key: FRONTEND_URL
+        value: https://ai-followup-crm.vercel.app
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: SECRET_KEY
+        sync: false

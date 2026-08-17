@@ -1,0 +1,28 @@
+{
+  "buildCommand": "mkdir -p public && cp backend/frontend/* public/ 2>/dev/null || true",
+  "outputDirectory": "public",
+  "env": {
+    "VITE_API_BASE_URL": "@vite_api_base_url"
+  },
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/docs",
+      "destination": "https://your-render-backend.onrender.com/docs"
+    },
+    {
+      "source": "/api/(.*)",
+      "destination": "https://your-render-backend.onrender.com/api/$1"
+    }
+  ]
+}

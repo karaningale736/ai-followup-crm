@@ -1,0 +1,56 @@
+name: Deploy to Vercel and Render
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  deploy-backend:
+    name: Deploy Backend to Render
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Deploy to Render
+        run: |
+          curl -X POST "https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}"
+        if: github.ref == 'refs/heads/main'
+
+  deploy-frontend:
+    name: Deploy Frontend to Vercel
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Deploy to Vercel
+        uses: vercel/action@master
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          working-directory: backend/frontend
+        if: github.ref == 'refs/heads/main'
+
+  test-api:
+    name: Test API Endpoints
+    runs-on: ubuntu-latest
+    needs: [deploy-backend]
+    
+    steps:
+      - name: Check backend health
+        run: |
+          for i in {1..30}; do
+            if curl -f https://ai-followup-crm-backend.onrender.com/docs; then
+              echo "Backend is up!"
+              exit 0
+            fi
+            echo "Attempt $i: Waiting for backend..."
+            sleep 10
+          done
+          exit 1
