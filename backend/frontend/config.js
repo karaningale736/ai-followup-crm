@@ -1,5 +1,5 @@
 // API Configuration
-const API_BASE_URL = window.ENV?.VITE_API_BASE_URL || 'http://localhost:8000';
+const API_BASE_URL = window.ENV?.VITE_API_BASE_URL || "https://ai-followup-crm-backend.onrender.com";
 
 // Determine if in production
 const isProd = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
