@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     secret_key: str = "change-me-in-production"
     algorithm: str = "HS256"
     access_token_expire_minutes: int = 60 * 24
-    frontend_url: str = "http://localhost:5173"
+    frontend_url: str = "https://ai-followup-crm-c2ofb8xm4-karaningale736s-projects.vercel.app"
     app_host: str = "0.0.0.0"
     app_port: int = 8000
 
@@ -34,11 +34,11 @@ class Settings(BaseSettings):
     imap_use_ssl: bool = True    
 
     allowed_origins: list[str] = [
-        "http://localhost:5173",
-        "http://localhost:3000",
-        "http://localhost:8000",
-        "http://localhost:5500",
-        "http://127.0.0.1:5500",
-    ]
-
-settings = Settings()
+      "http://localhost:5173",
+      "http://localhost:3000",
+      "http://localhost:8000",
+      "http://localhost:5500",
+      "http://127.0.0.1:5500",
+      "https://ai-followup-crm-c2ofb8xm4-karaningale736s-projects.vercel.app",                     
+      ]
+    settings = Settings()
