@@ -15,12 +15,16 @@
   ],
   "rewrites": [
     {
+      "source": "/",
+      "destination": "/crm-ui.html"
+    },
+    {
       "source": "/docs",
-      "destination": "https://your-render-backend.onrender.com/docs"
+      "destination": "https://ai-followup-crm-backend.onrender.com/docs"
     },
     {
       "source": "/api/(.*)",
-      "destination": "https://your-render-backend.onrender.com/api/$1"
+      "destination": "https://ai-followup-crm-backend.onrender.com/api/$1"
     }
   ]
 }

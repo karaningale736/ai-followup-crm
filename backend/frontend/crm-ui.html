@@ -319,6 +319,7 @@
     }
 
     document.getElementById('saveClientBtn').addEventListener('click', async () => {
+      const clientIdInput = document.getElementById('clientId').value.trim();
       const payload = {
         first_name: document.getElementById('first_name').value,
         last_name: document.getElementById('last_name').value,
@@ -331,7 +332,20 @@
       };
 
       try {
-        const client = await api('/clients', { method: 'POST', body: JSON.stringify(payload) });
+        let clientId;
+        let path = '/clients';
+        let method = 'POST';
+
+        if (clientIdInput) {
+          clientId = Number(clientIdInput);
+          if (!Number.isInteger(clientId) || clientId <= 0) {
+            throw new Error('Client ID must be a positive number.');
+          }
+          path = `/clients/${clientId}`;
+          method = 'PUT';
+        }
+
+        const client = await api(path, { method, body: JSON.stringify(payload) });
         document.getElementById('clientId').value = client.id;
         document.getElementById('clientStatus').textContent = `Client saved successfully. Client ID: ${client.id}`;
         await loadSummary();
